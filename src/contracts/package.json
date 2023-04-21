@@ -1,0 +1,29 @@
+{
+  "name": "contracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "hardhat": "^2.14.0",
+    "@semaphore-protocol/identity": "^3.6.0",
+    "@nomiclabs/hardhat-ethers": "^2.2.0",
+    "@openzeppelin/contracts": "^4.7.3",
+    "@typechain/ethers-v5": "^10.2.0",
+    "@typechain/hardhat": "^6.1.5",
+    "@types/node": "^18.15.11",
+    "@unirep/circuits": "1.0.0",
+    "@unirep/contracts": "2.0.0-beta-3",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.1.1",
+    "typescript": "^5.0.3"
+  },
+  "dependencies": {
+    "poseidon-solidity": "^0.0.3"
+  }
+}
