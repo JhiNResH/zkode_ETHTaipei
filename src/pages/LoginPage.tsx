@@ -12,8 +12,8 @@ const Login: NextPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleGithubLogin = () => {
-    setCurrentStep(2);
-    signIn('github');
+    setCurrentStep(3);
+    signIn();
   };
 
   const handleSecondStep = () => {
@@ -36,7 +36,19 @@ const Login: NextPage = () => {
         <Heading as="h1" mb={8}>
           ZKode
         </Heading>
-        {session ? (
+        {session ? currentStep === 2 ? (
+          <>
+              <Text mb={4}>Not Successful!</Text>
+            <Button mt={4} onClick={handleSecondStep}>
+              back
+            </Button>
+            <HStack spacing="16px" mt={8}>
+              <Icon as={MdRadioButtonUnchecked} boxSize="32px" />
+              <Icon as={MdRadioButtonChecked} boxSize="32px" />
+              <Icon as={MdRadioButtonUnchecked} boxSize="32px" />
+            </HStack>
+          </>
+        ) : (
           <>
             <Text mb={4}>Logged in Successful!</Text>
             <Button mt={4} onClick={handleNavigation}>
@@ -48,7 +60,8 @@ const Login: NextPage = () => {
               <Icon as={MdRadioButtonChecked} boxSize="32px" />
             </HStack>
           </>
-        ) : currentStep === 1 ? (
+          
+        ) : (
           <>
             <Button mt={4} onClick={handleGithubLogin}>
               Github Login
@@ -56,18 +69,6 @@ const Login: NextPage = () => {
             <HStack spacing="16px" mt={8}>
               <Icon as={MdRadioButtonChecked} boxSize="32px" />
               <Icon as={MdRadioButtonUnchecked} boxSize="32px" />
-              <Icon as={MdRadioButtonUnchecked} boxSize="32px" />
-            </HStack>
-          </>
-        ) : (
-          <>
-            <Text mb={4}>github log in unsuccessful</Text>
-            <Button mt={4} onClick={handleSecondStep}>
-              back
-            </Button>
-            <HStack spacing="16px" mt={8}>
-              <Icon as={MdRadioButtonUnchecked} boxSize="32px" />
-              <Icon as={MdRadioButtonChecked} boxSize="32px" />
               <Icon as={MdRadioButtonUnchecked} boxSize="32px" />
             </HStack>
           </>

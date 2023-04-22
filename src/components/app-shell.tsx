@@ -1,6 +1,6 @@
 import { Stack } from "@chakra-ui/react";
 import { PropsWithChildren, useState } from "react";
-import TopNavBar from "./NavBar.tsx";
+import TopNavBar from "./NavBar";
 import SidebarDrawer from "./sidebar-drawer";
 import Home from "pages/example";
 export const AppShell = ({ children }: PropsWithChildren): JSX.Element => {
@@ -10,9 +10,6 @@ export const AppShell = ({ children }: PropsWithChildren): JSX.Element => {
 
   return (
     <Stack>
-      <TopNavBar />
-      <SidebarDrawer isOpen={isOpen} onClose={handleToggle} />
-      <Home />
       {children}
     </Stack>
   );
