@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useRouter } from 'next/router'
 import { Text, Flex, Heading, Button } from "@chakra-ui/react";
-import Link from 'next/link';
+
 
 export const Index: NextPage = () => {
   const router = useRouter()  
@@ -11,6 +11,7 @@ export const Index: NextPage = () => {
 
   return (
     <>
+
       <Flex
         height="100vh"
         justifyContent="center"

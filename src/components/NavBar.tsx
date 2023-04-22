@@ -1,19 +1,40 @@
-import { Avatar, Box, Flex, Spacer, Button } from "@chakra-ui/react";
-import { AtSignIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { Flex, Text, Button } from "@chakra-ui/react";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+
 const TopNavBar = (): JSX.Element => {
+  const router = useRouter();
+
   return (
-    <Flex bg="gray.400" p={4} color="black">
-      <Button>
-        <AtSignIcon/> ZKode 
-      </Button>
-      <Spacer />
-      <Box>
-      </Box>
-      <Spacer />
-      <Button colorScheme='blue' variant='solid'>
-        Profile
-      </Button>
-      {/* Add more navigation elements here */}
+    <Flex
+      bg="gray.900"
+      color="white"
+      alignItems="center"
+      justify="space-between"
+      p={4}
+    >
+      <Link href="/">
+        <Text fontSize="3xl" fontWeight="bold" cursor="pointer">
+          ZKode
+        </Text>
+      </Link>
+      <Flex>
+        <Link href="/post">
+          <Button colorScheme="blackAlpha" variant="solid" mr={4} size="lg">
+            Post
+          </Button>
+        </Link>
+        <Link href="/prove">
+          <Button colorScheme="blackAlpha" variant="solid" mr={4} size="lg">
+            Prove
+          </Button>
+        </Link>
+        <Link href="/profile">
+          <Button colorScheme="blackAlpha" variant="solid" size="lg">
+            Profile
+          </Button>
+        </Link>
+      </Flex>
     </Flex>
   );
 };
