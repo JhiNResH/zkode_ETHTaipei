@@ -26,7 +26,7 @@ const unirepContract = new ethers.Contract('0xCa61bFcA0107c5952f8bf59f4D510d111c
 
 const attesterSignUp = async () => {
 	// define epoch length
-	const epochLength = 5 // 300 seconds
+	const epochLength = 300 // 300 seconds
 	// send transaction
 	const tx = await unirepContract.attesterSignUp(epochLength)
 	await tx.wait()
@@ -70,7 +70,7 @@ const attest = async () => {
 	// get epoch from contract
 	const epoch = await unirepContract.attesterCurrentEpoch(attester.address)
 	// define nonce
-	const nonce = 0 // it could be 0 to (NUM_EPOCH_KEY_NONCE - 1) per user
+	const nonce = 1 // it could be 0 to (NUM_EPOCH_KEY_NONCE - 1) per user
 	// generate an epoch key
 	const epochKey = genEpochKey(
 		identity.secret,
@@ -137,6 +137,8 @@ const main = async () => {
 	// await deploy()    
 	// await attesterSignUp()
 	// await userSignUp()
+	// console.log(await attester.getBalance());
+	
 	await attest()
 	// await userStateTransition()
 	// await proveData()

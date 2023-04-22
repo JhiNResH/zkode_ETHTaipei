@@ -16,7 +16,7 @@ export const Dashboard: NextPage = () => {
 
   return (
     <AppShell>
-      <h1>Dashboard</h1>
+      <h1>123</h1>
     </AppShell>
   );
 };

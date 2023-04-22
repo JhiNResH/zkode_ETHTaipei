@@ -1,15 +1,18 @@
-import { Box, Flex, Spacer, Button } from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
-
+import { Avatar, Box, Flex, Spacer, Button } from "@chakra-ui/react";
+import { AtSignIcon, HamburgerIcon } from "@chakra-ui/icons";
 const TopNavBar = (): JSX.Element => {
   return (
-    <Flex bg="blue.500" p={4} color="white">
+    <Flex bg="gray.400" p={4} color="black">
       <Button>
-        <HamburgerIcon />
+        <AtSignIcon/> ZKode 
       </Button>
       <Spacer />
-      <Box>Your Logo</Box>
+      <Box>
+      </Box>
       <Spacer />
+      <Button colorScheme='blue' variant='solid'>
+        Profile
+      </Button>
       {/* Add more navigation elements here */}
     </Flex>
   );
