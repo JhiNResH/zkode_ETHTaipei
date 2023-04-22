@@ -4,10 +4,12 @@ import {
   type NextAuthOptions,
   type DefaultSession,
 } from "next-auth";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
-import { prisma } from "~/server/db";
 import GitHubProvider from "next-auth/providers/github";
+
+interface SessionWithAccessToken extends DefaultSession {
+  accessToken: string;
+}
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -37,15 +39,24 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+    async jwt({ token, account }) {
+      // Persist the OAuth access_token to the token right after signin
+
+      console.log(token, account);
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
+    async session({ session, token, user }) {
+      // Send properties to the client, like an access_token from a provider.
+
+      return { ...session, accessToken: token };
+    },
   },
-  adapter: PrismaAdapter(prisma),
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     GitHubProvider({
       clientId: env.GITHUB_ID,
