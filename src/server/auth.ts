@@ -4,7 +4,7 @@ import {
   type NextAuthOptions,
   type DefaultSession,
 } from "next-auth";
-import { env } from "~/env.mjs";
+import { env } from "@env";
 import GitHubProvider from "next-auth/providers/github";
 
 interface SessionWithAccessToken extends DefaultSession {
@@ -43,6 +43,7 @@ export const authOptions: NextAuthOptions = {
       // Persist the OAuth access_token to the token right after signin
 
       console.log(token, account);
+
       if (account) {
         token.accessToken = account.access_token;
       }
