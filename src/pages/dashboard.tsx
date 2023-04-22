@@ -8,7 +8,12 @@ import { useState } from "react";
 export const Dashboard: NextPage = () => {
   // Inside your Dashboard component
   const { data: session } = useSession();
+
   const [selectedRepos, setSelectedRepos] = useState<Set<string>>(new Set());
+  const fetchAndSaveReposMutation =
+    api.github.fetchAndSaveRepositories.useMutation({
+      onSuccess: (res) => {},
+    });
 
   const handleCheckboxChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -31,10 +36,14 @@ export const Dashboard: NextPage = () => {
   const handleSubmit = (): void => {
     // Submit the selected repos
     console.log(Array.from(selectedRepos));
+    fetchAndSaveReposMutation.mutate({
+      accessToken: (session as any)?.accessToken,
+      repositoryIds: Array.from(selectedRepos),
+    });
   };
 
   const reposQuery = api.github.getRepositories.useQuery({
-    accessToken: (session as any)?.accessToken,
+    accessToken: (session as any)?.accessToken ?? "",
   });
 
   const repos = reposQuery.data?.repositories;

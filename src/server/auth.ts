@@ -6,10 +6,8 @@ import {
 } from "next-auth";
 import { env } from "@env";
 import GitHubProvider from "next-auth/providers/github";
-
-interface SessionWithAccessToken extends DefaultSession {
-  accessToken: string;
-}
+import { prisma } from "./db";
+import crypto from "crypto";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -49,9 +47,27 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token, user }) {
-      // Send properties to the client, like an access_token from a provider.
+      const key = crypto
+        .createHash("sha256")
+        .update(token.sub as string)
+        .digest("hex");
 
-      return { ...session, accessToken: token.accessToken };
+      const coder = await prisma.coder.upsert({
+        where: {
+          key,
+        },
+        update: { updatedAt: new Date() },
+        create: {
+          key,
+        },
+      });
+      // Send properties to the client, like an access_token from a provider.
+      return {
+        ...session,
+        accessToken: token.accessToken,
+        providerAccountId: token.sub,
+        coderId: coder.id,
+      };
     },
   },
   session: {
