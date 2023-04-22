@@ -10,16 +10,16 @@ export const githubRouter = createTRPCRouter({
         accessToken: z.string(),
       })
     )
-    .query(async ({ input }) => {
+    .query(async ({ input }): Promise<{ name: string }> => {
       const { accessToken } = input;
 
-      const response = await axios.get("https://api.github.com/user/repos", {
-        headers: { Authorization: `token ${accessToken}` },
-      });
+      // const response = await axios.get("https://api.github.com/user/repos", {
+      //   headers: { Authorization: `token ${accessToken}` },
+      // });
 
-      console.log(response.data);
+      console.log(accessToken, "hello");
 
-      return response.data;
+      return { name: "bob" };
     }),
 });
 

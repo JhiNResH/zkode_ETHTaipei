@@ -20,7 +20,8 @@
       "@hooks": ["hooks/index.ts"],
       "@components": ["components/index.ts"],
       "@utils": ["utils/index.ts"],
-      "@env": ["env/index.js"]
+      "@env": ["env/index.js"],
+      "@server": ["server/index.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],

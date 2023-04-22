@@ -4,10 +4,10 @@
  *
  * We also create a few inference helpers for input and output types.
  */
+import { AppRouter } from "@server";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
 import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
-import { AppRouter } from "server/api/root";
 import superjson from "superjson";
 
 const getBaseUrl = () => {
