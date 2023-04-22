@@ -1,10 +1,10 @@
-const { ethers } = require("ethers")
-const { UserState } = require('@unirep/core')
-const { deployUnirep } = require('@unirep/contracts/deploy')
-// const { abi } = require('./abi.js')
-const { defaultProver } = require('@unirep/circuits/provers/defaultProver')
-const { Identity } = require('@semaphore-protocol/identity')
-const { genEpochKey } = require('@unirep/utils')
+import { ethers } from "ethers"
+import { UserState } from '@unirep/core'
+import { deployUnirep } from '@unirep/contracts/deploy'
+import UNIREP_ABI from '@unirep/contracts/abi/Unirep.json'
+import { defaultProver } from '@unirep/circuits/provers/defaultProver'
+import { Identity } from '@semaphore-protocol/identity'
+import { genEpochKey } from '@unirep/utils'
 
 // console.log(abi);
 // connect to a wallet
@@ -12,6 +12,8 @@ const privateKey = '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4
 const provider = ethers.getDefaultProvider('http://localhost:8545')
 const deployer = new ethers.Wallet(privateKey, provider)
 const attester = new ethers.Wallet(privateKey, provider)
+const abi = JSON.stringify(UNIREP_ABI)
+// console.log(abi);
 
 const deploy = async () => {
 	// deploy unirep contract
@@ -19,12 +21,12 @@ const deploy = async () => {
 	console.log(unirepContract);
 }
 
-// const unirepContract = new ethers.Contract('0xCa61bFcA0107c5952f8bf59f4D510d111cbcE146', abi, attester)
+
+const unirepContract = new ethers.Contract('0xCa61bFcA0107c5952f8bf59f4D510d111cbcE146', abi, attester)
 
 const attesterSignUp = async () => {
-	
 	// define epoch length
-	const epochLength = 300 // 300 seconds
+	const epochLength = 5 // 300 seconds
 	// send transaction
 	const tx = await unirepContract.attesterSignUp(epochLength)
 	await tx.wait()
@@ -132,10 +134,10 @@ const proveData = async () => {
 }
 
 const main = async () => {
-	await deploy()
+	// await deploy()    
 	// await attesterSignUp()
 	// await userSignUp()
-	// await attest()
+	await attest()
 	// await userStateTransition()
 	// await proveData()
 }

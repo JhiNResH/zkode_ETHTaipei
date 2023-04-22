@@ -24,6 +24,6 @@
       "@server": ["server/index.ts"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "src/contracts/hooks/user.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "src/contracts/hooks/user.ts"],
   "exclude": ["node_modules"]
 }
