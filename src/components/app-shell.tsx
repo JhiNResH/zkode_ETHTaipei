@@ -1,6 +1,6 @@
 import { Stack } from "@chakra-ui/react";
 import { PropsWithChildren, useState } from "react";
-import TopNavBar from "./top-nav";
+import TopNavBar from "./NavBar.tsx";
 import SidebarDrawer from "./sidebar-drawer";
 import Home from "pages/example";
 export const AppShell = ({ children }: PropsWithChildren): JSX.Element => {

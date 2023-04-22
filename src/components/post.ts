@@ -1,0 +1,1 @@
+// single post in navigation page
