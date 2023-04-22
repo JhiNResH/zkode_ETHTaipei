@@ -16,24 +16,6 @@ export const RepoSelector: NextPage = () => {
       onSuccess: (res) => {},
     });
 
-  // const handleCheckboxChange = (
-  //   e: React.ChangeEvent<HTMLInputElement>
-  // ): void => {
-  //   const repoName = e.target.value;
-
-  //   if (selectedRepos.has(repoName)) {
-  //     // Remove repoName from the set
-  //     setSelectedRepos((prev) => {
-  //       const newSet = new Set(prev);
-  //       newSet.delete(repoName);
-  //       return newSet;
-  //     });
-  //   } else {
-  //     // Add repoName to the set
-  //     setSelectedRepos((prev) => new Set(prev).add(repoName));
-  //   }
-  // };
-
   const handleSubmit = (): void => {
     // Submit the selected repos
     setSelectedRepos((prev) => new Set(prev).add(selectedRepo))
@@ -59,6 +41,7 @@ export const RepoSelector: NextPage = () => {
             repos &&
             repos.map((repo) => (
               <Box
+                key={repo.id}
                 border="1px solid"
                 borderColor={selectedRepo === `${repo.id}` ? 'blue.500' : 'gray.200'}
                 borderRadius={4}
@@ -71,7 +54,7 @@ export const RepoSelector: NextPage = () => {
             ))
           }
           </HStack>
-        <Button onClick={handleSubmit}>Submit Selected Repos</Button>
+        <Button onClick={handleSubmit}>Post Selected Repo</Button>
       </VStack>
     </AppShell>
   );
