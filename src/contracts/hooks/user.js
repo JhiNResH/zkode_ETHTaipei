@@ -1,7 +1,7 @@
 const { ethers } = require("ethers")
 const { UserState } = require('@unirep/core')
 const { deployUnirep } = require('@unirep/contracts/deploy')
-const { abi } = require('./abi.js')
+// const { abi } = require('./abi.js')
 const { defaultProver } = require('@unirep/circuits/provers/defaultProver')
 const { Identity } = require('@semaphore-protocol/identity')
 const { genEpochKey } = require('@unirep/utils')
@@ -19,7 +19,7 @@ const deploy = async () => {
 	console.log(unirepContract);
 }
 
-const unirepContract = new ethers.Contract('0xCa61bFcA0107c5952f8bf59f4D510d111cbcE146', abi, attester)
+// const unirepContract = new ethers.Contract('0xCa61bFcA0107c5952f8bf59f4D510d111cbcE146', abi, attester)
 
 const attesterSignUp = async () => {
 	
@@ -132,10 +132,10 @@ const proveData = async () => {
 }
 
 const main = async () => {
-	// await deploy()
+	await deploy()
 	// await attesterSignUp()
 	// await userSignUp()
-	await attest()
+	// await attest()
 	// await userStateTransition()
 	// await proveData()
 }

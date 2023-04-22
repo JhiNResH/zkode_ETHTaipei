@@ -10,7 +10,8 @@
     "prisma:studio": "prisma studio",
     "lint": "next lint",
     "start": "next start",
-    "start-node": "cd src/contracts && npx hardhat node"
+    "start-node": "cd src/contracts && npx hardhat node",
+    "deploy": "cd src/contracts/hooks && npx hardhat run user.js"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.18",
