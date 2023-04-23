@@ -9,6 +9,7 @@ import AdmZip from 'adm-zip';
 import { resolveCoderRepos } from './resolveCoderRepos';
 import crypto from 'crypto';
 import { TRPCError } from '@trpc/server';
+import { rimraf } from 'rimraf';
 
 const writeFileAsync = promisify(fs.writeFile);
 const mkdirSync = promisify(fs.mkdirSync);
@@ -75,21 +76,29 @@ export const githubRouter = createTRPCRouter({
 
             const key = crypto.createHash('sha256').update(repo.id.toString()).digest('hex');
 
-            // Create the directory if it does not exist
+            mkdirSync('./temp', { recursive: true });
+
+            const tempFolderPath = `./temp/${key}`;
+
+            const tempZip = new AdmZip(archiveResponse.data);
+
+            tempZip.extractAllTo(tempFolderPath, true);
+
+            await rimraf(`${tempFolderPath}/.git`);
+
+            const zip = new AdmZip();
+
+            zip.addLocalFolder(tempFolderPath);
+
             mkdirSync('./savedRepos/zip', { recursive: true });
 
-            // Save the fetched code to disk
-            const filePath = `./savedRepos/zip/${key}.zip`;
+            const zipFilePath = `./savedRepos/zip/${key}.zip`;
 
-            await writeFileAsync(filePath, archiveResponse.data);
+            zip.writeZip(zipFilePath);
 
-            const zip = new AdmZip(archiveResponse.data);
-
-            // Create the directory if it does not exist
             mkdirSync('./savedRepos/full', { recursive: true });
 
-            // Unzip the fetched repository and save it as a folder
-            zip.extractAllTo(`./savedRepos/full/${key}`, true);
+            fs.renameSync(tempFolderPath, `./savedRepos/full/${key}`);
 
             return key;
           })
