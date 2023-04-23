@@ -10,8 +10,8 @@ import { resolveCoderRepos } from './resolveCoderRepos';
 import crypto from 'crypto';
 import { TRPCError } from '@trpc/server';
 import { rimraf } from 'rimraf';
+import fsExtra from 'fs-extra';
 
-const writeFileAsync = promisify(fs.writeFile);
 const mkdirSync = promisify(fs.mkdirSync);
 
 export const githubRouter = createTRPCRouter({
@@ -88,17 +88,17 @@ export const githubRouter = createTRPCRouter({
 
             const zip = new AdmZip();
 
-            zip.addLocalFolder(tempFolderPath);
+            await zip.addLocalFolderPromise(tempFolderPath, {});
 
             mkdirSync('./savedRepos/zip', { recursive: true });
 
             const zipFilePath = `./savedRepos/zip/${key}.zip`;
 
-            zip.writeZip(zipFilePath);
+            await zip.writeZipPromise(zipFilePath);
 
             mkdirSync('./savedRepos/full', { recursive: true });
 
-            fs.renameSync(tempFolderPath, `./savedRepos/full/${key}`);
+            fsExtra.moveSync(tempFolderPath, `./savedRepos/full/${key}`, { overwrite: true });
 
             return key;
           })
